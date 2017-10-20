@@ -1,6 +1,7 @@
 package com.example.brainplow.newsreader.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,14 @@ import android.widget.TextView;
 import com.example.brainplow.newsreader.Common.Common;
 import com.example.brainplow.newsreader.Interface.IconBetterIdeaService;
 import com.example.brainplow.newsreader.Interface.ItemClickListener;
+import com.example.brainplow.newsreader.ListNews;
 import com.example.brainplow.newsreader.Model.IconBetterIdea;
+import com.example.brainplow.newsreader.Model.Source;
 import com.example.brainplow.newsreader.Model.WebSite;
 import com.example.brainplow.newsreader.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -37,7 +42,7 @@ class ListSourceViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 
         source_title =(TextView)itemView.findViewById(R.id.source_name);
         source_image = (CircleImageView)itemView.findViewById(R.id.source_image);
-
+        itemView.setOnClickListener(this);
 
     }
 
@@ -116,6 +121,21 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceViewHolder
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
 
+//                try {
+
+                List<Source> sources= webSite.getSources();
+              // String web = webSite.getSources().get(position).getSortbysavailable().get(position);
+                String abc =webSite.getSources().get(position).getId();
+                Intent intent = new Intent(context, ListNews.class);
+                intent.putExtra("source", webSite.getSources().get(position).getId());
+              //  intent.putExtra("sortBy", webSite.getSources().get(position).getSortbysavailable().get(0));
+                context.startActivity(intent);
+//            }
+//                catch (Exception e)
+//            {
+//                 Toast.makeText(context,  e.getMessage(), Toast.LENGTH_LONG).show();
+//
+//            }
 
 
             }

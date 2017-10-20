@@ -12,7 +12,7 @@ import com.example.brainplow.newsreader.Remote.RetrofitClient;
 public class Common {
 
     private  static  final  String BASE_URL = "https://newsapi.org/";
-    private static final String API_KEY = "d8a1805b8c4b4bdd8faad032c9327fef";
+    public static final String API_KEY = "d8a1805b8c4b4bdd8faad032c9327fef";
 
     public static NewsService getNewsService()
     {
@@ -26,5 +26,17 @@ public class Common {
         return IconBetterIdeaClient.getClient()
                 .create(IconBetterIdeaService.class);
 
+    }
+
+
+    // https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=d8a1805b8c4b4bdd8faad032c9327fef
+    public static String getAPIUrl (String source, String sortBy, String apikEY)
+    {
+        StringBuilder apiUrl = new StringBuilder( "https://newsapi.org/v1/articles?source=");
+        return apiUrl.append("&sortBy=")
+                .append(sortBy)
+                .append("&apiKey=")
+                .append(apikEY)
+                .toString();
     }
 }
