@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         listWebsite.setLayoutManager(layoutManager);
 
         dialog = new SpotsDialog(this);
-        
+        dialog.show();
         loadWebsiteSource(false);
         
 
@@ -66,23 +66,21 @@ public class MainActivity extends AppCompatActivity {
             String cache = Paper.book().read("cache");
             if (cache != null && !cache.isEmpty() )
             {
+                dialog.dismiss();
                 WebSite webSite = new Gson().fromJson(cache, WebSite.class);
-                adapter = new ListSourceAdapter(getBaseContext(),webSite);
+                adapter = new ListSourceAdapter(getApplicationContext(),webSite);
                 adapter.notifyDataSetChanged();
                 listWebsite.setAdapter(adapter);
-
             }
             else
             {
-                dialog.show();
-
                 mService.getSources().enqueue(new Callback<WebSite>() {
                     @Override
                     public void onResponse(Call<WebSite> call, Response<WebSite> response) {
-                        adapter = new ListSourceAdapter(getBaseContext(), response.body());
+                        dialog.dismiss();
+                        adapter = new ListSourceAdapter(getApplicationContext(), response.body());
                         adapter.notifyDataSetChanged();
                         listWebsite.setAdapter(adapter);
-
                         Paper.book().write("cache", new Gson().toJson(response.body()));
 
                     }
@@ -96,17 +94,16 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
 
-            dialog.show();
-
             mService.getSources().enqueue(new Callback<WebSite>() {
                 @Override
                 public void onResponse(Call<WebSite> call, Response<WebSite> response) {
-                    adapter = new ListSourceAdapter(getBaseContext(), response.body());
+                    dialog.dismiss();
+                    adapter = new ListSourceAdapter(getApplicationContext(), response.body());
                     adapter.notifyDataSetChanged();
                     listWebsite.setAdapter(adapter);
-
                     Paper.book().write("cache", new Gson().toJson(response.body()));
                     swipeRefreshLayout.setRefreshing(false);
+
 
                 }
 
