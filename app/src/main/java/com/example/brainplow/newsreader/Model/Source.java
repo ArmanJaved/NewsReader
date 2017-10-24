@@ -37,6 +37,7 @@ class  UrlsToLogos {
 
 public class Source {
 
+
     private  String id;
     private  String name;
     private  String description;
@@ -44,9 +45,8 @@ public class Source {
     private  String category;
     private  String language;
     private  String country;
-
     private UrlsToLogos urlsToLogos;
-    private List<String> sortbysavailable;
+    private List<String> sortBysAvailable;
 
 
     public Source()
@@ -54,7 +54,7 @@ public class Source {
 
     }
 
-    public Source(String id, String name, String description, String url, String category, String language, String country, UrlsToLogos urlsToLogos, List<String> sortbysavailable) {
+    public Source(String id, String name, String description, String url, String category, String language, String country, UrlsToLogos urlsToLogos, List<String> sortBysAvailable) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -63,7 +63,7 @@ public class Source {
         this.language = language;
         this.country = country;
         this.urlsToLogos = urlsToLogos;
-        this.sortbysavailable = sortbysavailable;
+        this.sortBysAvailable = sortBysAvailable;
     }
 
     public String getId() {
@@ -130,11 +130,11 @@ public class Source {
         this.urlsToLogos = urlsToLogos;
     }
 
-    public List<String> getSortbysavailable() {
-        return sortbysavailable;
+    public List<String> getSortBysAvailable() {
+        return sortBysAvailable;
     }
 
-    public void setSortbysavailable(List<String> sortbysavailable) {
-        this.sortbysavailable = sortbysavailable;
+    public void setSortBysAvailable(List<String> sortBysAvailable) {
+        this.sortBysAvailable = sortBysAvailable;
     }
 }

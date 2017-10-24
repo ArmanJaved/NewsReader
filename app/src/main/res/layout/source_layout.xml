@@ -9,6 +9,7 @@
 
 
     <LinearLayout
+
         android:gravity="center"
         android:weightSum="10"
         android:orientation="horizontal"

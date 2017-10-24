@@ -15,7 +15,6 @@ public class WebSite {
     {
 
     }
-
     public WebSite(String status, List<Source> sources) {
         this.status = status;
         this.sources = sources;

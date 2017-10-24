@@ -62,17 +62,21 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceViewHolder
     private IconBetterIdeaService mservice;
     private Context context;
     private WebSite webSite;
+//    private SpotsDialog dialog;
+
 
     public ListSourceAdapter(Context context, WebSite webSite) {
         this.context = context;
         this.webSite = webSite;
         mservice = Common.getIconService();
 
+
     }
 
 
     @Override
     public ListSourceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.source_layout, parent,false );
         return new ListSourceViewHolder(itemView);
@@ -82,24 +86,35 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceViewHolder
     public void onBindViewHolder(final ListSourceViewHolder holder, int position) {
 
 
+//        dialog = new SpotsDialog(context);
+//        dialog.show();
         StringBuilder iconBetterAPI = new StringBuilder("https://icons.better-idea.org/allicons.json?url=");
         iconBetterAPI.append(webSite.getSources().get(position).getUrl());
 
         mservice.getIconUrl(iconBetterAPI.toString()).enqueue(new Callback<IconBetterIdea>() {
             @Override
             public void onResponse(Call<IconBetterIdea> call, Response<IconBetterIdea> response) {
-
+//                dialog.dismiss();
 
                 try {
 
 
                 if (response.body().getIcons().size() > 0 )
                 {
-                    String abc = response.body().getIcons().get(0).getUrl();
+
+//                    String abc = response.body().getIcons().get(0).getUrl();
+//                    if (abc==null)
+//                    {
+//                        Toast.makeText(context, "Icon is null", Toast.LENGTH_LONG).show();
+//                    }
 
                     Picasso.with(context)
                             .load(response.body().getIcons().get(0).getUrl())
                             .into(holder.source_image);
+                }
+                else
+                {
+                    //Toast.makeText(context, "Icon is null", Toast.LENGTH_LONG).show();
                 }
                 }
                 catch (Exception e)
@@ -121,21 +136,16 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceViewHolder
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
 
-//                try {
 
-                List<Source> sources= webSite.getSources();
-              // String web = webSite.getSources().get(position).getSortbysavailable().get(position);
-                String abc =webSite.getSources().get(position).getId();
+                List<Source> abc = webSite.getSources();
                 Intent intent = new Intent(context, ListNews.class);
                 intent.putExtra("source", webSite.getSources().get(position).getId());
-              //  intent.putExtra("sortBy", webSite.getSources().get(position).getSortbysavailable().get(0));
+                intent.putExtra("sortBy", "top");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
-//            }
-//                catch (Exception e)
-//            {
-//                 Toast.makeText(context,  e.getMessage(), Toast.LENGTH_LONG).show();
-//
-//            }
+
+
 
 
             }
